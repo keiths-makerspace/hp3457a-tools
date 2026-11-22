@@ -1,0 +1,7 @@
+# HP/Keysight-copyrighted ROM images and anything derived from them stay out of this repo
+firmware/**/*.bin
+*.bin
+build/
+analysis/
+__pycache__/
+*.pyc
