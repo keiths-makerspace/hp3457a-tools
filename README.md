@@ -6,8 +6,9 @@ HP-IB meter behind a Prologix-Ethernet interface, a Forth decompiler, ROM patchi
 checksum tools, cal-RAM dump decoding, and a diagnostic ROM written in 6809 assembly.
 
 > **No ROM included.** The firmware is HP/Keysight copyrighted. You need to supply your own
-> dump of U602 (see [firmware/README.md](firmware/README.md)). Without it the ROM-based tools
-> won't run and the tests that need it are skipped.
+> dump of U602 (see [firmware/README.md](firmware/README.md), which has the reference hashes).
+> Without it you can still build the diagnostic ROM in `diag/` and run it in the emulator and
+> virtual meter; the tests that need the HP ROM are skipped.
 
 Python 3, standard library only (`tkinter` for the front panel).
 
@@ -35,11 +36,20 @@ Python 3, standard library only (`tkinter` for the front panel).
 
 ## Quick start
 
+Without the HP ROM (needs lwasm, see below):
+
+```bash
+python3 tools/asm.py diag/diag.asm build/diag.bin --checksum   # build the diagnostic ROM
+python3 tools/vmeter.py --rom build/diag.bin                   # run it on the virtual front panel
+```
+
+With your own HP ROM dump in `firmware/`:
+
 ```bash
 python3 tools/emu3457.py --seconds 8 --profile          # boot the ROM in the emulator
 python3 tools/vmeter.py --dcv 1.2345 --prologix         # virtual meter with front panel
 python3 tools/decompile.py PEEK                         # decompile a Forth word by name
-python3 -m unittest discover -s tests                   # tests (~3 min with a ROM)
+python3 -m unittest discover -s tests                   # tests (test_diag alone can take ~20 min)
 ```
 
 The diagnostic ROM needs [LWTOOLS](http://www.lwtools.ca/) (`lwasm`, tested with 4.25);
@@ -53,5 +63,9 @@ emulator first, and back up your cal RAM before touching hardware.
 
 Some docs refer to notes (FINDINGS.md, CALIBRATION.md, FREE_SPACE.md) kept in a separate
 private research repo.
+
+## Licence
+
+MIT, see [LICENSE](LICENSE). The licence covers this repo's code and docs only, not HP's firmware.
 
 Not affiliated with HP, Agilent or Keysight.
