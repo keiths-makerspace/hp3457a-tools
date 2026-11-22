@@ -512,6 +512,7 @@ class TestDiag(unittest.TestCase):
         self.assertIn("AC CONVERTER", texts)
         self.assertIn("AUXERR   256", texts)
 
+    @unittest.skipUnless(os.path.exists(ROM), "HP ROM image not present")
     def test_stage10_sends_the_hp_bytes(self):
         """Byte for byte what the HP ROM sends for TEST, and the same replies, at 50 Hz (the
         mode frames' bit 4 must not follow the line: STEST sets USLINE)."""
