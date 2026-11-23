@@ -5,6 +5,12 @@ written in Forth): a 6809 emulator that boots the real ROM, a virtual front pane
 HP-IB meter behind a Prologix-Ethernet interface, a Forth decompiler, ROM patching and
 checksum tools, cal-RAM dump decoding, and a diagnostic ROM written in 6809 assembly.
 
+> **Work in progress.** The emulator boots the HP ROM through its power-on self-test and ACAL,
+> and runs the diagnostic ROM; both are checked by the test suite. **Nothing here has been tried
+> on real hardware yet:** the diagnostic ROM has not been programmed into an EPROM or run on a
+> meter. Assumptions still to be confirmed are marked **(verify)** in the code and docs.
+> Feedback and bench results are welcome.
+
 > **No ROM included.** The firmware is HP/Keysight copyrighted. You need to supply your own
 > dump of U602 (see [firmware/README.md](firmware/README.md), which has the reference hashes).
 > Without it you can still build the diagnostic ROM in `diag/` and run it in the emulator and
